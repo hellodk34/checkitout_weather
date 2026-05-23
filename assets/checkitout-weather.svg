@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 128 128">
+  <defs>
+    <linearGradient id="sky" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#3b82f6"/>
+      <stop offset="100%" stop-color="#1d4ed8"/>
+    </linearGradient>
+  </defs>
+  <rect width="128" height="128" rx="28" fill="url(#sky)"/>
+  <circle cx="72" cy="44" r="18" fill="#fbbf24" stroke="#f59e0b" stroke-width="2"/>
+  <g fill="#fff" opacity="0.9">
+    <ellipse cx="52" cy="66" rx="28" ry="22"/>
+    <ellipse cx="68" cy="60" rx="22" ry="18"/>
+    <ellipse cx="44" cy="72" rx="24" ry="16"/>
+  </g>
+  <g fill="#e2e8f0" opacity="0.6">
+    <ellipse cx="86" cy="70" rx="16" ry="12"/>
+    <ellipse cx="94" cy="64" rx="12" ry="10"/>
+  </g>
+</svg>
