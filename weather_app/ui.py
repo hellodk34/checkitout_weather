@@ -423,6 +423,7 @@ class WeatherWindow(QMainWindow):
         self.search_combo.setEditable(True)
         self.search_combo.setPlaceholderText("输入城市名称搜索...")
         self.search_combo.setMinimumHeight(38)
+        self.search_combo.lineEdit().returnPressed.connect(self._search_city)
         search_layout.addWidget(self.search_combo, 1)
 
         self.search_btn = QPushButton("搜索")
