@@ -101,6 +101,8 @@ StartupNotify=true
 
 # 2. 创建桌面图标文件 ~/.local/share/icons/hicolor/scalable/apps/checkitout-weather.svg，内容即本仓库的 assets/checkitout-weather.svg 内容，复制粘贴过去即可
 
+# 3. 更新桌面图标
+update-desktop-database ~/.local/share/applications
 ```
 
 ## 从源码运行
