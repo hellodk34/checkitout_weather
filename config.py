@@ -37,6 +37,8 @@ def load_config() -> dict:
     if CONFIG_FILE.exists():
         with open(CONFIG_FILE, "rb") as f:
             config = _deep_merge(config, tomllib.load(f))
+    else:
+        save_config(config)
     return config
 
 

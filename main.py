@@ -21,6 +21,9 @@ def _detect_im() -> str:
 
 
 def _setup_input_method():
+    if sys.platform == "win32" or sys.platform == "darwin":
+        return
+
     if os.environ.get("WAYLAND_DISPLAY") or os.environ.get("XDG_SESSION_TYPE") == "wayland":
         os.environ.pop("QT_IM_MODULE", None)
         return

@@ -421,6 +421,7 @@ class WeatherWindow(QMainWindow):
         search_layout = QHBoxLayout()
         self.search_combo = QComboBox()
         self.search_combo.setEditable(True)
+        self.search_combo.setCompleter(None)
         self.search_combo.setPlaceholderText("输入城市名称搜索...")
         self.search_combo.setMinimumHeight(38)
         self.search_combo.lineEdit().returnPressed.connect(self._search_city)
