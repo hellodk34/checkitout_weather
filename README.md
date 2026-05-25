@@ -137,11 +137,20 @@ python main.py
 使用 PyInstaller 构建独立可执行文件：
 
 ```bash
-pip install pyinstaller
-pyinstaller --onefile --windowed --name CheckitoutWeather main.py
+bash build_for_linux.sh
 ```
 
-构建产物在 `dist/CheckitoutWeather`（Linux）或 `dist/CheckitoutWeather.exe`（Windows）。
+或手动分步执行：
+
+```bash
+pip install -r requirements.txt
+pip install pyinstaller
+pyinstaller --onefile --noconfirm CheckitoutWeather.spec
+```
+
+构建产物在 `dist/CheckitoutWeather`（Linux）。
+
+> **关于中文输入法**：构建脚本会自动检测并打包系统中所有可用的 Qt6 输入法平台插件（fcitx5、ibus 等），确保在目标系统能正常输入中文。详见 `CheckitoutWeather.spec` 和 `main.py` 中的 `_setup_input_method()`。
 
 ## 许可
 
