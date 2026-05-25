@@ -4,6 +4,8 @@
 
 手动刷新（无自动刷新），即查即知。
 
+Downloads Count: ![GitHub release downloads](https://img.shields.io/github/downloads/hellodk34/checkitout_weather/total)
+
 ## 功能
 
 - 实时天气：温度、体感温度、湿度、降水、气压、风向风力、能见度
@@ -134,23 +136,41 @@ python main.py
 
 ## 构建分发包
 
-使用 PyInstaller 构建独立可执行文件：
+使用 PyInstaller 构建独立可执行文件。
+
+### Linux
 
 ```bash
 bash build_for_linux.sh
 ```
 
-或手动分步执行：
+手动构建：
 
 ```bash
 pip install -r requirements.txt
 pip install pyinstaller
-pyinstaller --onefile --noconfirm CheckitoutWeather.spec
+pyinstaller --noconfirm CheckitoutWeather.spec
 ```
 
-构建产物在 `dist/CheckitoutWeather`（Linux）。
+构建产物：`dist/CheckitoutWeather`
 
-> **关于中文输入法**：构建脚本会自动检测并打包系统中所有可用的 Qt6 输入法平台插件（fcitx5、ibus 等），确保在目标系统能正常输入中文。详见 `CheckitoutWeather.spec` 和 `main.py` 中的 `_setup_input_method()`。
+### Windows
+
+```bash
+pip install -r requirements.txt
+pip install pyinstaller
+pyinstaller --noconfirm CheckitoutWeather.spec
+```
+
+构建产物：`dist\CheckitoutWeather.exe`
+
+> Windows 与 macOS 的中文输入法走系统原生 TSF / Input Method Kit，`main.py` 中的 IM 检测逻辑对这两个平台无任何影响。
+
+> **关于中文输入法**：应用启动时会自动检测运行环境。
+> - **Wayland**：清除 `QT_IM_MODULE`，Qt6 使用原生 text-input 协议通过 compositor 与 fcitx5/ibus 通信
+> - **X11**：自动检测正在运行的输入法框架（fcitx5/ibus）并设置 `QT_IM_MODULE` 等环境变量
+>
+> 详见 `main.py` 中的 `_setup_input_method()`。
 
 ## 许可
 
