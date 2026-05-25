@@ -19,7 +19,11 @@ pip install -q -r requirements.txt
 pip install -q pyinstaller
 
 echo "[3/4] Building standalone executable (onefile) ..."
-pyinstaller --noconfirm CheckitoutWeather.spec
+if [ -f CheckitoutWeather.spec ]; then
+    pyinstaller --noconfirm CheckitoutWeather.spec
+else
+    pyinstaller --onefile --windowed --noconfirm --name CheckitoutWeather main.py
+fi
 
 echo "[4/4] Done!  dist/CheckitoutWeather"
 ls -lh dist/CheckitoutWeather

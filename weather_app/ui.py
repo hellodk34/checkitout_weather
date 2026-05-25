@@ -607,7 +607,9 @@ class WeatherWindow(QMainWindow):
                 'host = "你的专属Host"\n'
                 'project_id = "你的Project ID"\n'
                 'credential_id = "你的Credential ID"\n'
-                'private_key_path = "/path/to/private.pem"\n\n'
+                'private_key_path = "/path/to/private.pem"\n'
+                "# 或用 inline 私钥内容替代文件路径\n"
+                '# private_key = "-----BEGIN PRIVATE KEY-----\\n..."\n\n'
                 "或通过环境变量设置:\n"
                 "export QWEATHER_API_HOST=...\n"
                 "export QWEATHER_PROJECT_ID=...\n"

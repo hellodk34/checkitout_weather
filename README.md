@@ -73,10 +73,12 @@ host = "你的专属 Host"
 project_id = "你的 Project ID"
 credential_id = "你的 Credential ID"
 private_key_path = "/path/to/ed25519-private.pem"
+# 或用 inline 私钥内容（替代文件路径）
+# private_key = "-----BEGIN PRIVATE KEY-----\n...\n-----END PRIVATE KEY-----"
 
 ```
 
-所有字段也可通过环境变量设置（优先级高于配置文件）：
+所有字段也可通过环境变量设置（优先级最高）：
 
 | 环境变量 | 说明 |
 |---|---|
@@ -136,7 +138,7 @@ python main.py
 
 ## 构建分发包
 
-使用 PyInstaller 构建独立可执行文件。
+使用 PyInstaller 构建独立可执行文件。三个平台的构建命令相同（`.spec` 文件跨平台），仅产物文件名不同。
 
 ### Linux
 
@@ -163,6 +165,22 @@ pyinstaller --noconfirm CheckitoutWeather.spec
 ```
 
 构建产物：`dist\CheckitoutWeather.exe`
+
+### macOS
+
+```bash
+pip install -r requirements.txt
+pip install pyinstaller
+pyinstaller --noconfirm CheckitoutWeather.spec
+```
+
+构建产物：`dist/CheckitoutWeather`
+
+### 关于体积
+
+当前 71MB 是 PySide6 应用的正常水平，体积大头是 Qt6 的 C++ 共享库（约 40-60MB），无法再压缩。
+
+PyInstaller `--onefile` 内部已使用 zlib 压缩归档载荷，UPX 对这类文件基本无效（压缩率 ≈0%），因此 `spec` 中默认禁用 UPX。
 
 > Windows 与 macOS 的中文输入法走系统原生 TSF / Input Method Kit，`main.py` 中的 IM 检测逻辑对这两个平台无任何影响。
 

@@ -7,12 +7,13 @@ import tomli_w
 CONFIG_DIR = Path.home() / ".config" / "checkitout_weather"
 CONFIG_FILE = CONFIG_DIR / "config.toml"
 
-DEFAULT_CONFIG = {
+DEFAULT_CONFIG: dict = {
     "api": {
         "host": "",
         "project_id": "",
         "credential_id": "",
         "private_key_path": "",
+        "private_key": "",
     },
     "app": {
         "theme": "light",
@@ -21,11 +22,21 @@ DEFAULT_CONFIG = {
 }
 
 
+def _deep_merge(base: dict, override: dict) -> dict:
+    result = dict(base)
+    for k, v in override.items():
+        if k in result and isinstance(result[k], dict) and isinstance(v, dict):
+            result[k] = _deep_merge(result[k], v)
+        else:
+            result[k] = v
+    return result
+
+
 def load_config() -> dict:
     config = dict(DEFAULT_CONFIG)
     if CONFIG_FILE.exists():
         with open(CONFIG_FILE, "rb") as f:
-            config.update(tomllib.load(f))
+            config = _deep_merge(config, tomllib.load(f))
     return config
 
 
@@ -61,22 +72,22 @@ def get_credential_id() -> str:
     return get_api_config().get("credential_id", "")
 
 
-def get_private_key_path() -> str:
-    path = os.environ.get("QWEATHER_PRIVATE_KEY_PATH")
-    if path:
-        return path
-    return get_api_config().get("private_key_path", "")
-
-
 def read_private_key() -> str | None:
-    path = get_private_key_path()
-    if not path:
-        return os.environ.get("QWEATHER_PRIVATE_KEY")
-    try:
-        with open(Path(path).expanduser(), "r") as f:
-            return f.read()
-    except (FileNotFoundError, IsADirectoryError, OSError):
-        return None
+    pem = os.environ.get("QWEATHER_PRIVATE_KEY")
+    if pem:
+        return pem
+
+    path = os.environ.get("QWEATHER_PRIVATE_KEY_PATH") or get_api_config().get(
+        "private_key_path", ""
+    )
+    if path:
+        try:
+            with open(Path(path).expanduser()) as f:
+                return f.read()
+        except OSError:
+            return None
+
+    return get_api_config().get("private_key") or None
 
 
 def get_saved_cities() -> list:
