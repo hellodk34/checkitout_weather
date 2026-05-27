@@ -20,6 +20,7 @@ class CurrentWeather:
     icon: str
     text: str
     wind_dir: str
+    wind_scale: str
     wind_speed: int
     humidity: int
     precip: float
@@ -44,8 +45,10 @@ class ForecastDay:
     icon_night: str
     text_night: str
     wind_dir_day: str
+    wind_scale_day: str
     wind_speed_day: int
     wind_dir_night: str
+    wind_scale_night: str
     wind_speed_night: int
     humidity: int
     precip: float

@@ -130,6 +130,7 @@ class QWeatherClient:
                 icon=now.get("icon", ""),
                 text=WEATHER_CODE_MAP.get(now.get("icon", ""), now.get("text", "")),
                 wind_dir=now.get("windDir", ""),
+                wind_scale=now.get("windScale", ""),
                 wind_speed=int(now.get("windSpeed", 0)),
                 humidity=int(now.get("humidity", 0)),
                 precip=float(now.get("precip", 0)),
@@ -156,8 +157,10 @@ class QWeatherClient:
                         day.get("iconNight", ""), day.get("textNight", "")
                     ),
                     wind_dir_day=day.get("windDirDay", ""),
+                    wind_scale_day=day.get("windScaleDay", ""),
                     wind_speed_day=int(day.get("windSpeedDay", 0)),
                     wind_dir_night=day.get("windDirNight", ""),
+                    wind_scale_night=day.get("windScaleNight", ""),
                     wind_speed_night=int(day.get("windSpeedNight", 0)),
                     humidity=int(day.get("humidity", 0)),
                     precip=float(day.get("precip", 0)),
@@ -186,8 +189,8 @@ class QWeatherClient:
                 precip=float(daily.get("precip", 0)),
                 pressure=int(daily.get("pressure", 0)),
                 icon_night="", text_night="",
-                wind_dir_day="", wind_speed_day=0,
-                wind_dir_night="", wind_speed_night=0,
+                wind_dir_day="", wind_scale_day="", wind_speed_day=0,
+                wind_dir_night="", wind_scale_night="", wind_speed_night=0,
                 uv_index=0, vis="0",
             )
         except Exception:
