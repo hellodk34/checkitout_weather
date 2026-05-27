@@ -18,7 +18,8 @@ Downloads Count: ![GitHub release downloads](https://img.shields.io/github/downl
 
 ## 截图
 
-![checkitoutweather截图1](./assets/checkitoutweather截图1.jpg)
+![checkitoutweather截图2](./assets/checkitoutweather截图2.jpg)
+![checkitoutweather截图3](./assets/checkitoutweather截图3.jpg)
 
 ## 下载
 
@@ -28,6 +29,11 @@ Downloads Count: ![GitHub release downloads](https://img.shields.io/github/downl
 
 - Linux
 - Windows
+
+## 版本历史
+
+1. v1.0.0 初版发布
+2. v1.0.1 修复风量级别显示的错误，增加风速具体数值显示
 
 ## 配置
 
@@ -176,17 +182,16 @@ pyinstaller --noconfirm CheckitoutWeather.spec
 
 构建产物：`dist/CheckitoutWeather`
 
-### 关于体积
+### 其他说明
 
-当前 71MB 是 PySide6 应用的正常水平，体积大头是 Qt6 的 C++ 共享库（约 40-60MB），无法再压缩。
+当前应用大小是 PySide6 应用的正常水平，体积大头是 Qt6 的 C++ 共享库（约 40-60MB），难以再压缩。
 
 PyInstaller `--onefile` 内部已使用 zlib 压缩归档载荷，UPX 对这类文件基本无效（压缩率 ≈0%），因此 `spec` 中默认禁用 UPX。
 
-> Windows 与 macOS 的中文输入法走系统原生 TSF / Input Method Kit，`main.py` 中的 IM 检测逻辑对这两个平台无任何影响。
-
-> **关于中文输入法**：应用启动时会自动检测运行环境。
-> - **Wayland**：清除 `QT_IM_MODULE`，Qt6 使用原生 text-input 协议通过 compositor 与 fcitx5/ibus 通信
-> - **X11**：自动检测正在运行的输入法框架（fcitx5/ibus）并设置 `QT_IM_MODULE` 等环境变量
+**关于中文输入法**：应用启动时会自动检测运行环境。
+> - Windows 与 macOS 的中文输入法走系统原生 TSF / Input Method Kit
+> - **Linux Wayland**：清除 `QT_IM_MODULE`，Qt6 使用原生 text-input 协议通过 compositor 与 fcitx5/ibus 通信
+> - **Linux X11**：自动检测正在运行的输入法框架（fcitx5/ibus）并设置 `QT_IM_MODULE` 等环境变量
 >
 > 详见 `main.py` 中的 `_setup_input_method()`。
 
