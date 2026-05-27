@@ -683,7 +683,7 @@ class WeatherWindow(QMainWindow):
             self.detail_labels["humidity"].setText(f"💧 湿度  {c.humidity}%")
             self.detail_labels["precip"].setText(f"🌧 降水  {c.precip}mm")
             self.detail_labels["pressure"].setText(f"🌀 气压  {c.pressure}hPa")
-            self.detail_labels["wind"].setText(f"🌬 风  {c.wind_dir}{c.wind_scale}级")
+            self.detail_labels["wind"].setText(f"🌬 风  {c.wind_dir}{c.wind_scale}级({c.wind_speed}km/h)")
             vis_val = c.vis if isinstance(c.vis, str) else str(c.vis)
             self.detail_labels["vis"].setText(f"👁 能见度  {vis_val}km")
         else:
