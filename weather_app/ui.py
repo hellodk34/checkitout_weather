@@ -170,26 +170,28 @@ class ForecastCard(QFrame):
         date_str = getattr(forecast, "date", "") or ""
         try:
             dt = datetime.strptime(date_str, "%Y-%m-%d")
-            if label_override:
-                label = label_override
-            elif day_offset == 1:
-                label = "今天"
-            elif day_offset == 2:
-                label = "明天"
-            elif day_offset == 3:
-                label = "后天"
-            else:
-                label = dt.strftime("%m/%d")
+            weekday_map = ["周一", "周二", "周三", "周四", "周五", "周六", "周日"]
+            weekday = weekday_map[dt.weekday()]
             date_part = f"{dt.month}月{dt.day}日"
+
+            if label_override:
+                text = f"{label_override} {date_part} {weekday}"
+            elif day_offset == 1:
+                text = f"今天 {date_part} {weekday}"
+            elif day_offset == 2:
+                text = f"明天 {date_part} {weekday}"
+            elif day_offset == 3:
+                text = f"后天 {date_part} {weekday}"
+            else:
+                text = f"{date_part} {weekday}"
         except (ValueError, AttributeError):
-            label = label_override or date_str
-            date_part = ""
+            text = label_override or date_str
 
         if day_offset and 1 <= day_offset <= 3:
             self.date_label.setStyleSheet(f"font-size: 16px; color: {self._theme_ss['fc_text']};")
         else:
             self.date_label.setStyleSheet(f"font-size: 13px; color: {self._theme_ss['fc_text']};")
-        self.date_label.setText(f"{label} {date_part}")
+        self.date_label.setText(text)
         icon_code = forecast.icon_day
         self.icon_label.setText(get_icon(icon_code))
         self.temp_label.setText(f"{forecast.temp_max}° / {forecast.temp_min}°")
@@ -693,10 +695,10 @@ class WeatherWindow(QMainWindow):
             for lbl in self.detail_labels.values():
                 lbl.setText("--")
 
-        if wd.forecast:
-            uv_index = wd.forecast[0].uv_index
-            uv_label = self._uv_desc(uv_index)
-            self.detail_labels["uv"].setText(f"☀ 紫外线 UV  {uv_label}")
+        if wd.uv:
+            self.detail_labels["uv"].setText(
+                f"☀ 紫外线  {wd.uv.category} (等级{wd.uv.level})"
+            )
         else:
             self.detail_labels["uv"].setText("☀ UV  --")
 
@@ -773,19 +775,6 @@ class WeatherWindow(QMainWindow):
             return "#99004c"
         else:
             return "#7e0023"
-
-    @staticmethod
-    def _uv_desc(uv: int) -> str:
-        if uv <= 2:
-            return f"{uv} (弱)"
-        elif uv <= 5:
-            return f"{uv} (中等)"
-        elif uv <= 7:
-            return f"{uv} (强)"
-        elif uv <= 10:
-            return f"{uv} (很强)"
-        else:
-            return f"{uv} (极强)"
 
     def _manual_refresh(self):
         if not self.weather_data:

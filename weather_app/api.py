@@ -13,6 +13,7 @@ from weather_app.models import (
     CurrentWeather,
     ForecastDay,
     SunriseSunset,
+    UVIndex,
     WeatherData,
 )
 
@@ -229,6 +230,23 @@ class QWeatherClient:
             )
         except Exception:
             wd.sun = None
+
+        try:
+            uv_data = self._get(
+                self._build_url("/v7/indices/1d"),
+                {"location": city.id, "type": "5"},
+            )
+            daily = uv_data.get("daily", [])
+            if daily:
+                d = daily[0]
+                wd.uv = UVIndex(
+                    level=int(d.get("level", 0)),
+                    category=d.get("category", ""),
+                    value=int(d.get("value", 0)),
+                    text=d.get("text", ""),
+                )
+        except Exception:
+            wd.uv = None
 
         return wd
 

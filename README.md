@@ -18,8 +18,8 @@ Downloads Count: ![GitHub release downloads](https://img.shields.io/github/downl
 
 ## 截图
 
-![checkitoutweather截图2](./assets/checkitoutweather截图2.jpg)
-![checkitoutweather截图3](./assets/checkitoutweather截图3.jpg)
+![screenshot1](./assets/screenshot1.jpg)
+![screenshot2](./assets/screenshot2.jpg)
 
 ## 下载
 
@@ -33,7 +33,7 @@ Downloads Count: ![GitHub release downloads](https://img.shields.io/github/downl
 ## 版本历史
 
 1. v1.0.0 初版发布
-2. v1.0.1 修复风量级别显示的错误，增加风速具体数值显示
+2. v1.0.1 修复风量级别显示的错误，增加风速具体数值显示；修复紫外线等级和强度描述；增加星期显示（周x）
 
 ## 配置
 

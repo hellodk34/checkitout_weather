@@ -71,6 +71,14 @@ class AirQuality:
 
 
 @dataclass
+class UVIndex:
+    level: int
+    category: str
+    value: int
+    text: str
+
+
+@dataclass
 class SunriseSunset:
     sunrise: str
     sunset: str
@@ -84,6 +92,7 @@ class WeatherData:
     yesterday: Optional[ForecastDay] = None
     air: Optional[AirQuality] = None
     sun: Optional[SunriseSunset] = None
+    uv: Optional[UVIndex] = None
 
 
 ICON_MAP = {
