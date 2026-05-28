@@ -131,7 +131,7 @@ cd checkitout_weather
 # 创建python独立隔离的虚拟环境
 python -m venv .venv
 # 激活环境
-source .venv/bin/activate # Windows: source .venv/Scripts/activate  
+source .venv/bin/activate # Windows: source .venv/Scripts/activate
 # 安装依赖
 pip install -r requirements.txt
 ```
