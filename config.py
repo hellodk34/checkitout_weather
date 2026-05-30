@@ -17,8 +17,8 @@ DEFAULT_CONFIG: dict = {
     },
     "app": {
         "theme": "light",
+        "saved_cities": [],
     },
-    "saved_cities": [],
 }
 
 
@@ -94,12 +94,13 @@ def read_private_key() -> str | None:
 
 def get_saved_cities() -> list:
     cfg = load_config()
-    return cfg.get("saved_cities", [])
+    return cfg.get("app", {}).get("saved_cities", [])
 
 
 def add_saved_city(city: dict):
     cfg = load_config()
-    cities = cfg.setdefault("saved_cities", [])
+    app = cfg.setdefault("app", {})
+    cities = app.setdefault("saved_cities", [])
     if not any(c["id"] == city["id"] for c in cities):
         cities.append(city)
     save_config(cfg)
@@ -107,6 +108,6 @@ def add_saved_city(city: dict):
 
 def remove_saved_city(city_id: str):
     cfg = load_config()
-    cities = cfg.get("saved_cities", [])
-    cfg["saved_cities"] = [c for c in cities if c["id"] != city_id]
+    app = cfg.setdefault("app", {})
+    app["saved_cities"] = [c for c in app.get("saved_cities", []) if c["id"] != city_id]
     save_config(cfg)
